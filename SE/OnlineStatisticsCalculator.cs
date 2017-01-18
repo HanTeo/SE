@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SE
 {
-    public class Class1
+    class OnlineStatisticsCalculator
     {
     }
 }
