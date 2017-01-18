@@ -59,5 +59,29 @@ namespace SE
 
             return true; 
         }
+
+        public static bool TryCalculateOnline(this double[] array, out double mean, out double variance, out double stdDev)
+        {
+            var n = array.Length;
+
+            if (n == 0)
+            {
+                mean = variance = stdDev = 0;
+                return false;
+            }
+
+            var onlineCalc = new OnlineStatisticsCalculator();
+
+            foreach(var x in array)
+            {
+                onlineCalc.Push(x);
+            }
+
+            mean = onlineCalc.Mean;
+            variance = onlineCalc.Variance;
+            stdDev = onlineCalc.StandardDeviation;
+
+            return true;
+        }
     }
 }
