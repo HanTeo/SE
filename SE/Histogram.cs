@@ -1,8 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SE
 {
+    public struct DataPoint
+    {
+        public DataPoint(string label, int count)
+        {
+            Label = label;
+            Count = count;
+        }
+
+        public string Label { get; }
+
+        public int Count { get; }
+
+        public override string ToString()
+        {
+            return $"| {Label,14} | {Count,6} |";
+        }
+    }
+
     public class Histogram
     {
         private int[] _freq;
@@ -40,6 +59,20 @@ namespace SE
                 Add(n);
         }
 
-        public int[] DataPoints { get { return _freq; } }
+        public int[] Frequencies { get { return _freq; } }
+
+        public IEnumerable<DataPoint> DataPoints
+        {
+            get
+            {
+                var from = 0;    
+                foreach(var f in Frequencies)
+                {
+                    var to = from + _interval;
+                    yield return new DataPoint($"{from,3} .. {to,3}", f);
+                    from = to;
+                }
+            }
+        }
     }
 }

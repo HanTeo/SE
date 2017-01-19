@@ -109,7 +109,7 @@ namespace SE.Tests
 
             hist.Add(items);
 
-            CollectionAssert.AreEqual(new[] { 5, 1, 2, 0, 0, 0, 0, 0, 0, 0 }, hist.DataPoints);
+            CollectionAssert.AreEqual(new[] { 5, 1, 2, 0, 0, 0, 0, 0, 0, 0 }, hist.Frequencies);
         }
 
         [TestMethod]
@@ -120,7 +120,21 @@ namespace SE.Tests
 
             hist.Add(numbers);
 
-            CollectionAssert.AreEqual(new[] { 94, 107, 99, 94, 96, 101, 109, 101, 100, 99 }, hist.DataPoints);
+            CollectionAssert.AreEqual(new[] { 94, 107, 99, 94, 96, 101, 109, 101, 100, 99 }, hist.Frequencies);
+        }
+
+        [TestMethod]
+        public void TestHistogramWithProviderData2()
+        {
+            var numbers = TestDataProvider.GetCsvData("0B-zod47PgWfmZ2ZQWmZRMXVyNXc");
+            var hist = new Histogram(0, 100, 10);
+
+            hist.Add(numbers);
+
+            foreach (var d in hist.DataPoints)
+            {
+                System.Console.WriteLine(d);
+            }
         }
     }
 }
